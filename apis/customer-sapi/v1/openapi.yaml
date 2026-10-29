@@ -1,0 +1,56 @@
+openapi: 3.0.3
+info:
+  title: Customer System API
+  description: Provides canonical customer records from the customer system.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4010
+    description: Local Prism mock
+
+tags:
+  - name: Customers
+
+paths:
+  /v1/customers/{customerId}:
+    get:
+      operationId: getCustomer
+      summary: Retrieve a customer
+      tags: [Customers]
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: CUST-1001
+      responses:
+        "200":
+          description: Customer found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Customer"
+              example:
+                customerId: CUST-1001
+                firstName: Priya
+                lastName: Sharma
+                status: ACTIVE
+        "404":
+          description: Customer not found
+
+components:
+  schemas:
+    Customer:
+      type: object
+      required: [customerId, firstName, lastName, status]
+      properties:
+        customerId:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        status:
+          type: string
+          enum: [ACTIVE, SUSPENDED, CLOSED]

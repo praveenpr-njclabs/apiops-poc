@@ -1,0 +1,60 @@
+openapi: 3.0.3
+info:
+  title: Customer Portal API
+  description: Experience API tailored to the customer web portal.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4012
+    description: Local Prism mock
+
+paths:
+  /v1/customers/{customerId}/dashboard:
+    get:
+      operationId: getCustomerDashboard
+      summary: Retrieve the customer portal dashboard
+      parameters:
+        - name: customerId
+          in: path
+          required: true
+          schema:
+            type: string
+          example: CUST-1001
+      responses:
+        "200":
+          description: Customer dashboard
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CustomerDashboard"
+              example:
+                customer:
+                  id: CUST-1001
+                  displayName: Priya Sharma
+                openOrders: 2
+                availableOffers: 3
+                alerts:
+                  - Your current quote expires tomorrow
+
+components:
+  schemas:
+    CustomerDashboard:
+      type: object
+      required: [customer, openOrders, availableOffers, alerts]
+      properties:
+        customer:
+          type: object
+          required: [id, displayName]
+          properties:
+            id:
+              type: string
+            displayName:
+              type: string
+        openOrders:
+          type: integer
+        availableOffers:
+          type: integer
+        alerts:
+          type: array
+          items:
+            type: string

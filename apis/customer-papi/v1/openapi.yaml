@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Order Process API
+  description: Orchestrates creation of an order quote.
+  version: 1.0.0
+
+servers:
+  - url: http://localhost:4011
+    description: Local Prism mock
+
+paths:
+  /v1/order-quotes:
+    post:
+      operationId: createOrderQuote
+      summary: Create an order quote
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/QuoteRequest"
+            example:
+              customerId: CUST-1001
+              items:
+                - productId: PROD-101
+                  quantity: 2
+      responses:
+        "201":
+          description: Quote created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Quote"
+              example:
+                quoteId: QUOTE-9001
+                customerId: CUST-1001
+                total: 1499.00
+                currency: INR
+                status: VALID
+
+components:
+  schemas:
+    QuoteRequest:
+      type: object
+      required: [customerId, items]
+      properties:
+        customerId:
+          type: string
+        items:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            required: [productId, quantity]
+            properties:
+              productId:
+                type: string
+              quantity:
+                type: integer
+                minimum: 1
+
+    Quote:
+      type: object
+      required: [quoteId, customerId, total, currency, status]
+      properties:
+        quoteId:
+          type: string
+        customerId:
+          type: string
+        total:
+          type: number
+          format: double
+        currency:
+          type: string
+        status:
+          type: string
+          enum: [VALID, EXPIRED]

@@ -1,0 +1,61 @@
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: customer-order-platform
+  description: POC demonstrating system, process, and experience APIs
+spec:
+  owner: api-platform-team
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customer-system-api-v1
+  title: Customer System API v1
+  description: Canonical access to customer records
+  tags:
+    - system-api
+    - customer
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: api-platform-team
+  system: customer-order-platform
+  definition:
+    $text: ./apis/customer-system-api/v1/openapi.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: order-process-api-v1
+  title: Order Process API v1
+  description: Order quote orchestration API
+  tags:
+    - process-api
+    - order
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: api-platform-team
+  system: customer-order-platform
+  definition:
+    $text: ./apis/order-process-api/v1/openapi.yaml
+
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: customer-portal-api-v1
+  title: Customer Portal API v1
+  description: Customer portal experience API
+  tags:
+    - experience-api
+    - customer-portal
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: api-platform-team
+  system: customer-order-platform
+  definition:
+    $text: ./apis/customer-portal-api/v1/openapi.yaml
