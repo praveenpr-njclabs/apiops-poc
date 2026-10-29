@@ -22,7 +22,7 @@ spec:
   owner: api-platform-team
   system: customer-order-platform
   definition:
-    $text: ./apis/customer-system-api/v1/openapi.yaml
+    $text: ./apis/customer-sapi/v1/openapi.yaml
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -40,7 +40,7 @@ spec:
   owner: api-platform-team
   system: customer-order-platform
   definition:
-    $text: ./apis/order-process-api/v1/openapi.yaml
+    $text: ./apis/order-papi/v1/openapi.yaml
 
 ---
 apiVersion: backstage.io/v1alpha1
@@ -58,4 +58,4 @@ spec:
   owner: api-platform-team
   system: customer-order-platform
   definition:
-    $text: ./apis/customer-portal-api/v1/openapi.yaml
+    $text: ./apis/customer-eapi/v1/openapi.yaml
